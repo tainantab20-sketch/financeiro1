@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meu Controle Financeiro</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">MC</div>
+
+                <div>
+                    <strong>Meu Controle</strong>
+                    <span>Financeiro</span>
+                </div>
+            </div>
+
+            <nav>
+
+                <button class="nav-item active" data-page="inicio">
+                    <span>⌂</span>
+                    Início
+                </button>
+
+                <button class="nav-item" data-page="transacoes">
+                    <span>⇄</span>
+                    Entradas e saídas
+                </button>
+
+                <button class="nav-item" data-page="contas">
+                    <span>▣</span>
+                    Contas
+                </button>
+
+                <button class="nav-item" data-page="metas">
+                    <span>◎</span>
+                    Metas
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <button id="limparDados" class="danger-button">
+                    🗑 Limpar dados
+                </button>
+
+                <div class="version">
+                    Meu Controle Financeiro
+                    <small>Versão 1.0</small>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTEÚDO -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <header class="topbar">
+
+                <div>
+                    <h1 id="pageTitle">Início</h1>
+                    <p id="pageSubtitle">
+                        Acompanhe sua vida financeira.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="abrirModal">
+                    + Nova transação
+                </button>
+
+            </header>
+
+
+            <!-- ================= INÍCIO ================= -->
+
+            <section class="page active" id="page-inicio">
+
+                <div class="cards">
+
+                    <div class="card balance-card">
+
+                        <div class="card-top">
+                            <span>Saldo atual</span>
+                            <span class="card-icon">R$</span>
+                        </div>
+
+                        <strong id="saldoAtual">R$ 0,00</strong>
+
+                        <small>
+                            Resultado entre entradas e saídas
+                        </small>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-top">
+                            <span>Entradas</span>
+                            <span class="icon green">↑</span>
+                        </div>
+
+                        <strong id="totalEntradas" class="green">
+                            R$ 0,00
+                        </strong>
+
+                        <small>
+                            Total recebido
+                        </small>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-top">
+                            <span>Saídas</span>
+                            <span class="icon red">↓</span>
+                        </div>
+
+                        <strong id="totalSaidas" class="red">
+                            R$ 0,00
+                        </strong>
+
+                        <small>
+                            Total gasto
+                        </small>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-top">
+                            <span>Transações</span>
+                            <span class="icon blue">#</span>
+                        </div>
+
+                        <strong id="totalTransacoes">
+                            0
+                        </strong>
+
+                        <small>
+                            Registros cadastrados
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h2>Transações recentes</h2>
+                                <p>Últimas movimentações registradas.</p>
+                            </div>
+
+                            <button class="text-button" id="abrirModal2">
+                                + Adicionar
+                            </button>
+
+                        </div>
+
+                        <div id="transacoesRecentes" class="transaction-list">
+
+                            <div class="empty">
+                                <div class="empty-icon">💰</div>
+                                <h3>Nenhuma transação</h3>
+                                <p>
+                                    Adicione sua primeira entrada ou saída.
+                                </p>
+
+                                <button class="primary-button" id="abrirModal3">
+                                    Adicionar transação
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h2>Resumo</h2>
+                                <p>Visão rápida das suas finanças.</p>
+                            </div>
+
+                        </div>
+
+                        <div class="summary-box">
+
+                            <div class="summary-row">
+                                <span>Entradas</span>
+                                <strong class="green" id="resumoEntradas">
+                                    R$ 0,00
+                                </strong>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Saídas</span>
+                                <strong class="red" id="resumoSaidas">
+                                    R$ 0,00
+                                </strong>
+                            </div>
+
+                            <div class="summary-divider"></div>
+
+                            <div class="summary-row total">
+                                <span>Saldo</span>
+                                <strong id="resumoSaldo">
+                                    R$ 0,00
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= TRANSAÇÕES ================= -->
+
+            <section class="page" id="page-transacoes">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Todas as transações</h2>
+                            <p>Controle tudo que entra e sai.</p>
+                        </div>
+
+                        <button class="primary-button" id="abrirModalTransacoes">
+                            + Nova transação
+                        </button>
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <input
+                            type="text"
+                            id="filtroBusca"
+                            placeholder="🔎 Buscar transação..."
+                        >
+
+                        <select id="filtroTipo">
+                            <option value="todos">Todos</option>
+                            <option value="entrada">Entradas</option>
+                            <option value="saida">Saídas</option>
+                        </select>
+
+                    </div>
+
+
+                    <div id="listaTransacoes" class="transaction-list">
+
+                        <div class="empty">
+                            <div class="empty-icon">📋</div>
+                            <h3>Nenhuma transação</h3>
+                            <p>Suas transações aparecerão aqui.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CONTAS ================= -->
+
+            <section class="page" id="page-contas">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Minhas contas</h2>
+                            <p>Cadastre contas e acompanhe os vencimentos.</p>
+                        </div>
+
+                        <button class="primary-button" id="abrirConta">
+                            + Nova conta
+                        </button>
+
+                    </div>
+
+
+                    <div id="listaContas" class="accounts-grid">
+
+                        <div class="empty">
+                            <div class="empty-icon">📄</div>
+                            <h3>Nenhuma conta cadastrada</h3>
+                            <p>
+                                Cadastre suas contas para não esquecer os vencimentos.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= METAS ================= -->
+
+            <section class="page" id="page-metas">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Minhas metas</h2>
+                            <p>Defina objetivos e acompanhe seu progresso.</p>
+                        </div>
+
+                        <button class="primary-button" id="abrirMeta">
+                            + Nova meta
+                        </button>
+
+                    </div>
+
+
+                    <div id="listaMetas" class="goals-grid">
+
+                        <div class="empty">
+                            <div class="empty-icon">🎯</div>
+                            <h3>Nenhuma meta cadastrada</h3>
+                            <p>
+                                Crie uma meta para começar a guardar dinheiro.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= MODAL TRANSAÇÃO ================= -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Nova transação</h2>
+                    <p>Registre uma entrada ou saída.</p>
+                </div>
+
+                <button class="close-button" id="fecharModal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="formTransacao">
+
+                <div class="type-selector">
+
+                    <label class="type-option entrada-option">
+
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="entrada"
+                            checked
+                        >
+
+                        <span>
+                            ↑ Entrada
+                        </span>
+
+                    </label>
+
+
+                    <label class="type-option saida-option">
+
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="saida"
+                        >
+
+                        <span>
+                            ↓ Saída
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="field full">
+                        <label>Descrição</label>
+
+                        <input
+                            type="text"
+                            id="descricao"
+                            placeholder="Ex: Salário"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Valor</label>
+
+                        <input
+                            type="number"
+                            id="valor"
+                            placeholder="0,00"
+                            step="0.01"
+                            min="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Data</label>
+
+                        <input
+                            type="date"
+                            id="data"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Categoria</label>
+
+                        <select id="categoria">
+
+                            <option value="Salário">Salário</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Moradia">Moradia</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Contas">Contas</option>
+                            <option value="Investimentos">Investimentos</option>
+                            <option value="Outros">Outros</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Observação</label>
+
+                        <input
+                            type="text"
+                            id="observacao"
+                            placeholder="Opcional"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelarModal"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Salvar transação
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MODAL CONTA ================= -->
+
+    <div class="modal" id="modalConta">
+
+        <div class="modal-box small">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Nova conta</h2>
+                    <p>Cadastre uma conta para acompanhar.</p>
+                </div>
+
+                <button class="close-button" id="fecharConta">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="formConta">
+
+                <div class="field">
+
+                    <label>Nome da conta</label>
+
+                    <input
+                        type="text"
+                        id="nomeConta"
+                        placeholder="Ex: Internet"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Valor</label>
+
+                    <input
+                        type="number"
+                        id="valorConta"
+                        placeholder="0,00"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Dia do vencimento</label>
+
+                    <input
+                        type="number"
+                        id="vencimento"
+                        min="1"
+                        max="31"
+                        placeholder="Ex: 10"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelarConta"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Salvar conta
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MODAL META ================= -->
+
+    <div class="modal" id="modalMeta">
+
+        <div class="modal-box small">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Nova meta</h2>
+                    <p>Crie um objetivo financeiro.</p>
+                </div>
+
+                <button class="close-button" id="fecharMeta">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="formMeta">
+
+                <div class="field">
+
+                    <label>Nome da meta</label>
+
+                    <input
+                        type="text"
+                        id="nomeMeta"
+                        placeholder="Ex: Comprar PC"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Valor da meta</label>
+
+                    <input
+                        type="number"
+                        id="valorMeta"
+                        placeholder="0,00"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Valor já guardado</label>
+
+                    <input
+                        type="number"
+                        id="guardadoMeta"
+                        placeholder="0,00"
+                        step="0.01"
+                        min="0"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelarMeta"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Salvar meta
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
